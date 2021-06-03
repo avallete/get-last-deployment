@@ -20,6 +20,8 @@ inputs:
 outputs:
   deployment_id:
     description: 'The deployment id'
+  payload:
+    description: 'The payload'
 
 runs:
   using: 'node12'
