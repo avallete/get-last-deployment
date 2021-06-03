@@ -18,6 +18,8 @@ async function run(): Promise<void> {
 
     const deployments = request.data
 
+    console.log("====== deployment ======");
+    console.log(deployments);
     if (deployments.length > 0) {
       core.setOutput('deployment_id', deployments[0].id.toString())
     }
