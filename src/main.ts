@@ -19,7 +19,7 @@ async function run(): Promise<void> {
     const deployments = request.data
 
     core.debug("====== deployment ======");
-    core.debug(JSON.stringify(deployments));
+    core.setOutput('payload', JSON.stringify(deployments));
     if (deployments.length > 0) {
       core.setOutput('deployment_id', deployments[0].id.toString())
     }
