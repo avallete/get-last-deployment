@@ -11,6 +11,12 @@ inputs:
   environment:
     description: 'The environment name'
     required: true
+  owner:
+    description: 'The owner name'
+    required: true
+  repo:
+    description: 'The repo name'
+    required: true
 outputs:
   deployment_id:
     description: 'The deployment id'
