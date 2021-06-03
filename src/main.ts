@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
-const query = `query($repo: String!, $owner: String!, $environment: String!) {
+const query = `query($repo: String!, $owner: String!, $environment: [String!]) {
   repository(name: $repo, owner: $owner) {
     deployments(environments: $environment, last: 1) {
       edges {
@@ -32,7 +32,7 @@ async function run(): Promise<void> {
     const repo = core.getInput('repo')
 
     const graphql_result = await octokit.graphql(query, {
-      environment,
+      environment: [environment],
       owner,
       repo
     })
