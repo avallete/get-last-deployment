@@ -37,6 +37,9 @@ async function run(): Promise<void> {
       repo
     })
 
+    core.debug('------ octokit context ---------')
+    core.debug(JSON.stringify(context))
+
     core.debug('===== graphql result ======')
     core.debug(JSON.stringify(graphql_result))
     const request = await octokit.repos.listDeployments({

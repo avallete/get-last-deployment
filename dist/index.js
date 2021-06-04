@@ -3504,7 +3504,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const github = __importStar(__webpack_require__(469));
-const query = `query($repo: String!, $owner: String!, $environment: String!) {
+const query = `query($repo: String!, $owner: String!, $environment: [String!]) {
   repository(name: $repo, owner: $owner) {
     deployments(environments: $environment, last: 1) {
       edges {
@@ -3532,15 +3532,17 @@ function run() {
             const owner = core.getInput('owner');
             const repo = core.getInput('repo');
             const graphql_result = yield octokit.graphql(query, {
-                environment,
+                environment: [environment],
                 owner,
                 repo
             });
-            core.debug("===== graphql result ======");
+            core.debug('------ octokit context ---------');
+            core.debug(JSON.stringify(context));
+            core.debug('===== graphql result ======');
             core.debug(JSON.stringify(graphql_result));
             const request = yield octokit.repos.listDeployments(Object.assign(Object.assign({}, context.repo), { environment }));
             const deployments = request.data;
-            core.debug("====== deployment ======");
+            core.debug('====== deployment ======');
             core.debug(JSON.stringify(deployments));
             if (deployments.length > 0) {
                 core.setOutput('payload', JSON.stringify(deployments));
